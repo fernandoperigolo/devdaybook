@@ -1,0 +1,27 @@
+@import '../vars.scss';
+
+h1 {
+  font-size: 22px;
+  text-align: center;
+  color: $base;
+  padding: 20px 0;
+  background: $main;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+nav {
+  padding: 0 0 20px;
+  border-bottom: 1px solid $main;
+  margin: 0 0 20px;
+  ul {
+    display: flex;
+    justify-content: space-between;
+  }
+  li {
+    a {
+      color: $main;
+      line-height: 26px;
+    }
+  }
+}

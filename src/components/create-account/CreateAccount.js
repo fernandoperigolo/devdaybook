@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { auth } from '../../utils/firebase'
+import { handleCreateUser } from '../../actions/user'
+import { connect } from 'react-redux'
 
 class CreateAccount extends Component {
   state = {
@@ -11,19 +12,7 @@ class CreateAccount extends Component {
   handleCreateAccountFormSubmit = (e) => {
     e.preventDefault()
 
-    const { createAccountEmail, createAccountPassword, createAccountName } = this.state
-
-    auth.createUserWithEmailAndPassword(createAccountEmail, createAccountPassword).then(credential => {
-      console.log('credential >>>>>>>>>', credential)
-      return auth.currentUser.updateProfile({
-        displayName: createAccountName,
-      })
-    }).then((something) => {
-      console.log('something >>>>>>>>>', something)
-      console.log('User created')
-    }).catch(error => {
-      console.error('handleCreateAccountFormSubmit:', error.message)
-    })  
+    this.props.handleCreateUser(this.state)
   }
 
   handleChange = (e) => {
@@ -36,25 +25,32 @@ class CreateAccount extends Component {
   }
 
   render() {
+    const { user } = this.props
+
     return (
       <div className="CreateAccount">
-        <h1>Dev Day-Book</h1>
         <h2>Create Account</h2>
+        {user.createAccountSuccess && 
+          <p>Success: {user.createAccountSuccess}</p>
+        }
+        {user.createAccountError && 
+          <p>Error: {user.createAccountError}</p>
+        }
         <form onSubmit={this.handleCreateAccountFormSubmit}>
           <p>
             <label htmlFor="createAccountName">Name</label>
-            <input type="text" name="createAccountName" id="createAccountName" onChange={this.handleChange} value={this.state.createAccountName} />
+            <input type="text" name="createAccountName" id="createAccountName" onChange={this.handleChange} value={this.state.createAccountName} autocomplete="name" />
           </p>
           <p>
             <label htmlFor="createAccountEmail">Email</label>
-            <input type="email" name="createAccountEmail" id="createAccountEmail" onChange={this.handleChange} value={this.state.createAccountEmail} />
+            <input type="email" name="createAccountEmail" id="createAccountEmail" onChange={this.handleChange} value={this.state.createAccountEmail} autocomplete="email" />
           </p>
           <p>
             <label htmlFor="createAccountPassword">Password</label>
-            <input type="password" name="createAccountPassword" id="createAccountPassword" onChange={this.handleChange} value={this.state.createAccountPassword} />
+            <input type="password" name="createAccountPassword" id="createAccountPassword" onChange={this.handleChange} value={this.state.createAccountPassword} autocomplete="new-password" />
           </p>
           <p>
-            <input type="submit" value="Create Account"/>
+            <input type="submit" value="Create Account" className="button" />
           </p>
         </form>
       </div>
@@ -62,4 +58,14 @@ class CreateAccount extends Component {
   }
 }
 
-export default CreateAccount
+function mapStateToProps({user}) {
+  return {
+      user,
+  }
+}
+
+const mapDispatchToProps = {
+  handleCreateUser,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount)
