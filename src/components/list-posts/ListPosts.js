@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { handleGetUserPosts } from '../../actions/post'
 import { connect } from 'react-redux'
-import { stringify } from 'querystring';
 
 class ListPosts extends Component {
   state = {}

@@ -40,15 +40,15 @@ class CreateAccount extends Component {
           <form onSubmit={this.handleCreateAccountFormSubmit}>
             <p>
               <label htmlFor="createAccountName">Name</label>
-              <input type="text" name="createAccountName" id="createAccountName" onChange={this.handleChange} value={this.state.createAccountName} autocomplete="name" />
+              <input type="text" name="createAccountName" id="createAccountName" onChange={this.handleChange} value={this.state.createAccountName} autoComplete="name" />
             </p>
             <p>
               <label htmlFor="createAccountEmail">Email</label>
-              <input type="email" name="createAccountEmail" id="createAccountEmail" onChange={this.handleChange} value={this.state.createAccountEmail} autocomplete="email" />
+              <input type="email" name="createAccountEmail" id="createAccountEmail" onChange={this.handleChange} value={this.state.createAccountEmail} autoComplete="email" />
             </p>
             <p>
               <label htmlFor="createAccountPassword">Password</label>
-              <input type="password" name="createAccountPassword" id="createAccountPassword" onChange={this.handleChange} value={this.state.createAccountPassword} autocomplete="new-password" />
+              <input type="password" name="createAccountPassword" id="createAccountPassword" onChange={this.handleChange} value={this.state.createAccountPassword} autoComplete="new-password" />
             </p>
             <p>
               <input type="submit" value="Create Account" className="button" />

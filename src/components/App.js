@@ -5,9 +5,9 @@ import CreateAccount from './create-account/CreateAccount'
 import CreatePost from './create-post/CreatePost'
 import ListPosts from './list-posts/ListPosts'
 import Login from './login/Login'
-import DayBook from './day-book/DayBook'
 import Home from './home/Home'
 import Header from './Header'
+import Loading from './loading/Loading'
 import PageNotFound from './page-not-found/PageNotFound'
 import { onAuthStateChanged } from '../actions/user'
 import { connect } from 'react-redux'
@@ -18,6 +18,12 @@ class App extends Component {
   }
 
   render(){
+    const { user } = this.props
+
+    if (user.userLoading === true || user.userLoading === null) {
+      return <Loading />
+    }
+
     return (
       <div className="App">
         <Router>

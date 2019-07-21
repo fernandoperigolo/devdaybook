@@ -8,6 +8,14 @@ export const SET_USER = 'SET_USER'
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS'
 export const LOGOUT_USER_ERROR = 'LOGOUT_USER_ERROR'
 export const CLEAR_ALL_MESSAGES = 'CLEAR_ALL_MESSAGES'
+export const SET_USER_LOADING = 'SET_USER_LOADING'
+
+function setUserLoading (status) {
+  return {
+    type: SET_USER_LOADING,
+    status,
+  }
+}
 
 function createUserSuccess (msg) {
   return {
@@ -87,12 +95,12 @@ export function handleCreateUser (user) {
 export function handleLogin (email, password) {
   return (dispatch) => {
     // call firebase login
-    auth.signInWithEmailAndPassword(email, password).then(credential => {
+    return auth.signInWithEmailAndPassword(email, password).then(credential => {
       dispatch(clearAllMessages())
-      dispatch(loginUserSuccess('Welcome back'))
+      return dispatch(loginUserSuccess('Welcome back'))
     }).catch(error => {
       console.error('signInWithEmailAndPassword:', error.message)
-      dispatch(loginUserError(error.message))
+      return dispatch(loginUserError(error.message))
     })
   }
 }
@@ -112,7 +120,9 @@ export function handleLogout () {
 
 export function onAuthStateChanged () {
   return (dispatch, getState) => {
+    dispatch(setUserLoading(true))
     auth.onAuthStateChanged(user => {
+      dispatch(setUserLoading(false))
       if (user) {
         return dispatch(setUser(user))
       } else {

@@ -1,9 +1,10 @@
 import React from 'react'
+import Loading from '../loading/Loading'
 
 function Home() {
   return (
     <div className="Home">
-      Home
+      <Loading />
     </div>
   )
 }

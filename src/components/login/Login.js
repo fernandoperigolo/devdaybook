@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { handleLogin } from '../../actions/user'
+import Loading from '../loading/Loading'
 import { connect } from 'react-redux'
 
 class Login extends Component {
   state = {
     loginEmail: '',
     loginPassword: '',
+    loading: false,
   }
 
   handleLoginFormSubmit = (e) => {
@@ -13,7 +15,10 @@ class Login extends Component {
 
     const { loginEmail, loginPassword } = this.state
 
-    this.props.handleLogin(loginEmail, loginPassword)
+    this.setState({ loading: true })
+    this.props.handleLogin(loginEmail, loginPassword).then(something => {
+      this.setState({ loading: false })
+    })
   }
 
   handleChange = (e) => {
@@ -27,29 +32,35 @@ class Login extends Component {
 
   render(){
     const { user } = this.props
+    const { loading } = this.state
 
     return (
       <div className="Login">
         <h2>Login</h2>
         {user.loginSuccess && 
-          <p>Success: {user.loginSuccess}</p>
+          <p className="message success">Success: {user.loginSuccess}</p>
         }
         {user.loginError && 
-          <p>Error: {user.loginError}</p>
+          <p className="message error">Error: {user.loginError}</p>
         }
-        <form onSubmit={this.handleLoginFormSubmit}>
-          <p>
-            <label htmlFor="loginEmail">Email</label>
-            <input type="email" name="loginEmail" id="loginEmail" onChange={this.handleChange} value={this.state.loginEmail} autocomplete="email" />
-          </p>
-          <p>
-            <label htmlFor="loginPassword">Password</label>
-            <input type="password" name="loginPassword" id="loginPassword"  onChange={this.handleChange} value={this.state.loginPassword} autocomplete="password" />
-          </p>
-          <p>
-            <input type="submit" value="Login" className="button" />
-          </p>
-        </form>
+        {!user.loginSuccess &&
+          <form onSubmit={this.handleLoginFormSubmit}>
+            <p>
+              <label htmlFor="loginEmail">Email</label>
+              <input type="email" name="loginEmail" id="loginEmail" onChange={this.handleChange} value={this.state.loginEmail} autoComplete="email" />
+            </p>
+            <p>
+              <label htmlFor="loginPassword">Password</label>
+              <input type="password" name="loginPassword" id="loginPassword"  onChange={this.handleChange} value={this.state.loginPassword} autoComplete="password" />
+            </p>
+            <p>
+              <input type="submit" value="Login" className="button" />
+            </p>
+          </form>
+        }
+        {loading && 
+          <Loading />
+        }
       </div>
     )
   }

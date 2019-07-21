@@ -68,8 +68,8 @@ export function handleGetUserPosts (uid) {
 }
 
 function normalizeFirebaseCollectionToObjectBy(attr, object){
-  return object.reduce((novoObjeto, item) => {
-    novoObjeto[item[attr]] = item.data();
-    return novoObjeto;
+  return object.reduce((newObject, item) => {
+    newObject[item[attr]] = item.data()
+    return newObject
   }, {})
 }

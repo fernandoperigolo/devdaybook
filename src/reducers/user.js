@@ -7,9 +7,11 @@ import {
   LOGOUT_USER_ERROR,
   SET_USER,
   CLEAR_ALL_MESSAGES,
+  SET_USER_LOADING,
 } from '../actions/user'
 
 const defaultState = {
+  userLoading: null,
   createAccountSuccess: null,
   createAccountError: null,
   loginSuccess: null,
@@ -21,6 +23,11 @@ const defaultState = {
 
 export default function user(state = defaultState, action) {
   switch(action.type) {
+    case SET_USER_LOADING:
+      return {
+        ...state,
+        userLoading: action.status,
+      }
     case CREATE_USER_SUCCESS:
       return {
         ...state,

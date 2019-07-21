@@ -16,7 +16,7 @@ class Header extends Component {
     const { user } = this.props
     return (
       <div className="Header">
-        <h1>Dev Day-Book</h1>
+        <h1>/Dev Day-Book</h1>
         <nav>
           <ul>
             <li><NavLink exact to='/'>/home</NavLink></li>
