@@ -31,28 +31,30 @@ class CreateAccount extends Component {
       <div className="CreateAccount">
         <h2>Create Account</h2>
         {user.createAccountSuccess && 
-          <p>Success: {user.createAccountSuccess}</p>
+          <p className="message success">Success: {user.createAccountSuccess}</p>
         }
         {user.createAccountError && 
-          <p>Error: {user.createAccountError}</p>
+          <p className="message error">Error: {user.createAccountError}</p>
         }
-        <form onSubmit={this.handleCreateAccountFormSubmit}>
-          <p>
-            <label htmlFor="createAccountName">Name</label>
-            <input type="text" name="createAccountName" id="createAccountName" onChange={this.handleChange} value={this.state.createAccountName} autocomplete="name" />
-          </p>
-          <p>
-            <label htmlFor="createAccountEmail">Email</label>
-            <input type="email" name="createAccountEmail" id="createAccountEmail" onChange={this.handleChange} value={this.state.createAccountEmail} autocomplete="email" />
-          </p>
-          <p>
-            <label htmlFor="createAccountPassword">Password</label>
-            <input type="password" name="createAccountPassword" id="createAccountPassword" onChange={this.handleChange} value={this.state.createAccountPassword} autocomplete="new-password" />
-          </p>
-          <p>
-            <input type="submit" value="Create Account" className="button" />
-          </p>
-        </form>
+        {!user.createAccountSuccess && 
+          <form onSubmit={this.handleCreateAccountFormSubmit}>
+            <p>
+              <label htmlFor="createAccountName">Name</label>
+              <input type="text" name="createAccountName" id="createAccountName" onChange={this.handleChange} value={this.state.createAccountName} autocomplete="name" />
+            </p>
+            <p>
+              <label htmlFor="createAccountEmail">Email</label>
+              <input type="email" name="createAccountEmail" id="createAccountEmail" onChange={this.handleChange} value={this.state.createAccountEmail} autocomplete="email" />
+            </p>
+            <p>
+              <label htmlFor="createAccountPassword">Password</label>
+              <input type="password" name="createAccountPassword" id="createAccountPassword" onChange={this.handleChange} value={this.state.createAccountPassword} autocomplete="new-password" />
+            </p>
+            <p>
+              <input type="submit" value="Create Account" className="button" />
+            </p>
+          </form>
+        }
       </div>
     )
   }

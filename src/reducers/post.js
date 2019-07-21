@@ -2,6 +2,7 @@ import {
   CREATE_POST_SUCCESS,
   CREATE_POST_ERROR,
   SET_POST,
+  SET_POSTS,
 } from '../actions/post'
 
 const defaultState = {
@@ -29,6 +30,11 @@ export default function post(state = defaultState, action) {
           ...state.posts,
           [action.post.id]: action.post,
         },
+      }
+    case SET_POSTS:
+      return {
+        ...state,
+        posts: action.posts,
       }
     default:
       return state

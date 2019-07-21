@@ -25,29 +25,32 @@ class CreatePost extends Component {
 
   render() {
     const { post } = this.props
+    const showForm = !post.createPostSuccess
 
     return (
       <div className="CreatePost">
         <h2>Create Post</h2>
         {post.createPostSuccess && 
-          <p>Success: {post.createPostSuccess}</p>
+          <p className="message success">Success: {post.createPostSuccess}</p>
         }
         {post.createPostError && 
-          <p>Error: {post.createPostError}</p>
+          <p className="message error">Error: {post.createPostError}</p>
         }
-        <form onSubmit={this.handleCreatePostFormSubmit}>
-          <p>
-            <label htmlFor="createPostTitle">Title</label>
-            <input type="text" name="createPostTitle" id="createPostTitle" onChange={this.handleChange} value={this.state.createPostTitle} />
-          </p>
-          <p>
-            <label htmlFor="createPostContent">Content</label>
-            <textarea name="createPostContent" id="createPostContent" onChange={this.handleChange} value={this.state.createPostContent} />
-          </p>
-          <p>
-            <input type="submit" value="Create Post" className="button" />
-          </p>
-        </form>
+        {showForm && 
+          <form onSubmit={this.handleCreatePostFormSubmit}>
+            <p>
+              <label htmlFor="createPostTitle">Title</label>
+              <input type="text" name="createPostTitle" id="createPostTitle" onChange={this.handleChange} value={this.state.createPostTitle} />
+            </p>
+            <p>
+              <label htmlFor="createPostContent">Content</label>
+              <textarea name="createPostContent" id="createPostContent" onChange={this.handleChange} value={this.state.createPostContent} />
+            </p>
+            <p>
+              <input type="submit" value="Create Post" className="button" />
+            </p>
+          </form>
+        }
       </div>
     )
   }

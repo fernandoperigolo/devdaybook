@@ -28,6 +28,7 @@ class Header extends Component {
             }
             {user.userData &&
               <Fragment>
+                <li><NavLink to={`/${user.userData.uid}`}>/my-posts</NavLink></li>
                 <li><NavLink to='/create-post'>/create-post</NavLink></li>
                 <li><button className="button" onClick={this.handleClickLogout}>/logout</button></li>
               </Fragment>
