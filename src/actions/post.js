@@ -57,12 +57,11 @@ export function handleCreatePost (post) {
 
 export function handleGetUserPosts (uid) {
   return (dispatch, getState) => {
-    firestore.collection('posts').doc(uid).collection('post').get().then((querySnapshot) => {
+    return firestore.collection('posts').doc(uid).collection('post').get().then((querySnapshot) => {
       const posts = normalizeFirebaseCollectionToObjectBy('id', querySnapshot.docs)
-      dispatch(setPosts(posts))
+      return dispatch(setPosts(posts))
     }).catch(error => {
       console.error('handleGetUserPosts error:', error.message)
-      //dispatch(createPostError(err))
     })
   }
 }
