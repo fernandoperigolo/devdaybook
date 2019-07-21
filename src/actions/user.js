@@ -75,19 +75,24 @@ function clearAllMessages (err) {
 export function handleCreateUser (user) {
   return (dispatch) => {
     // call firebase create
-    auth.createUserWithEmailAndPassword(user.createAccountEmail, user.createAccountPassword).then(credential => {
+    return auth.createUserWithEmailAndPassword(user.createAccountEmail, user.createAccountPassword).then(credential => {
       return auth.currentUser.updateProfile({
         displayName: user.createAccountName,
       }).then(() => {
         return credential.user
       })
+    }, error => {
+      return dispatch(createUserError(error.message))
     }).then((user) => {
-      dispatch(setUser(user))
       dispatch(clearAllMessages())
-      dispatch(createUserSuccess('Account created'))
+      if (user.type === 'CREATE_USER_ERROR') {
+        return dispatch(createUserError(user.err))
+      }
+      dispatch(setUser(user))
+      return dispatch(createUserSuccess('Account created'))
     }).catch(error => {
       console.error('handleCreateAccountFormSubmit:', error.message)
-      dispatch(createUserError('Error on Create User'))
+      return dispatch(createUserError(error.message))
     }) 
   }
 }

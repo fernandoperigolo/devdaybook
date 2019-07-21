@@ -14,7 +14,7 @@ class ListPosts extends Component {
     console.log('posts', posts)
     return (
       <div className="ListPosts">
-        <h2>Bob Posts</h2>
+        <h2>Posts</h2>
         {posts &&
           Object.keys(posts).map(post =>
             <div className="post-list-item" key={post}>

@@ -8,11 +8,12 @@ h1 {
   background: $main;
   margin: 0 0 20px;
   text-transform: uppercase;
+  font-weight: 700;
 }
 
 nav {
   padding: 0 0 20px;
-  border-bottom: 1px solid $main;
+  border-bottom: 2px solid $main;
   margin: 0 0 20px;
   ul {
     display: flex;

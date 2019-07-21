@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { handleCreateUser } from '../../actions/user'
+import Loading from '../loading/Loading'
 import { connect } from 'react-redux'
 
 class CreateAccount extends Component {
@@ -7,12 +8,15 @@ class CreateAccount extends Component {
     createAccountName: '',
     createAccountEmail: '',
     createAccountPassword: '',
+    loading: false,
   }
 
   handleCreateAccountFormSubmit = (e) => {
     e.preventDefault()
-
-    this.props.handleCreateUser(this.state)
+    this.setState({ loading: true })
+    this.props.handleCreateUser(this.state).then(something => {
+      this.setState({ loading: false })
+    })
   }
 
   handleChange = (e) => {
@@ -26,6 +30,7 @@ class CreateAccount extends Component {
 
   render() {
     const { user } = this.props
+    const { loading } = this.state
 
     return (
       <div className="CreateAccount">
@@ -54,6 +59,9 @@ class CreateAccount extends Component {
               <input type="submit" value="Create Account" className="button" />
             </p>
           </form>
+        }
+        {loading && 
+          <Loading />
         }
       </div>
     )
