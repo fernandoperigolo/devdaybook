@@ -57,7 +57,7 @@ export function handleCreatePost (post) {
 
 export function handleGetUserPosts (uid) {
   return (dispatch, getState) => {
-    return firestore.collection('posts').doc(uid).collection('post').get().then((querySnapshot) => {
+    return firestore.collection('posts').doc(uid).collection('post').orderBy('created', 'desc').get().then((querySnapshot) => {
       const posts = normalizeFirebaseCollectionToObjectBy('id', querySnapshot.docs)
       return dispatch(setPosts(posts))
     }).catch(error => {
