@@ -14,7 +14,7 @@ class CreateAccount extends Component {
   handleCreateAccountFormSubmit = (e) => {
     e.preventDefault()
     this.setState({ loading: true })
-    this.props.handleCreateUser(this.state).then(something => {
+    this.props.handleCreateUser(this.state).then(() => {
       this.setState({ loading: false })
     })
   }

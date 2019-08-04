@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import { handleCreatePost } from '../../actions/post'
 import { connect } from 'react-redux'
+import Loading from '../loading/Loading'
 
 class CreatePost extends Component {
   state = {
     createPostTitle: '',
     createPostContent: '',
+    loading: false,
   }
 
   handleCreatePostFormSubmit = (e) => {
     e.preventDefault()
-
-    this.props.handleCreatePost(this.state)
+    this.setState({ loading: true })
+    this.props.handleCreatePost(this.state).then(() => {
+      this.setState({ loading: false })
+    })
   }
 
   handleChange = (e) => {
@@ -25,6 +29,7 @@ class CreatePost extends Component {
 
   render() {
     const { post } = this.props
+    const { loading } = this.state
     const showForm = !post.createPostSuccess
 
     return (
@@ -50,6 +55,9 @@ class CreatePost extends Component {
               <input type="submit" value="Create Post" className="button" />
             </p>
           </form>
+        }
+        {loading && 
+          <Loading />
         }
       </div>
     )

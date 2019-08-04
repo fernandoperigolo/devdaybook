@@ -36,20 +36,20 @@ function setPosts (posts) {
 export function handleCreatePost (post) {
   return (dispatch, getState) => {
     const { user } = getState()
-    firestore.collection('posts').add({
+    return firestore.collection('posts').add({
       uid: user.userData.uid,
       title: post.createPostTitle,
       content: post.createPostContent,
       created: new Date(),
-    }).then((postData) => {
+    }).then(() => {
       dispatch(setPost({
         uid: user.userData.uid,
         title: post.createPostTitle,
         content: post.createPostContent,
       }))
-      dispatch(createPostSuccess('Post created'))
+      return dispatch(createPostSuccess('Post created'))
     }).catch(err => {
-      dispatch(createPostError(err))
+      return dispatch(createPostError(err))
     })
   }
 }
