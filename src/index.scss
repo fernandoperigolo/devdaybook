@@ -12,7 +12,7 @@ h2 {
   color: $secondary;
   padding: 0 0 10px;
   border-bottom: 2px solid $secondary;
-  margin: 0 0 10px;
+  margin: 0 0 20px;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -28,12 +28,18 @@ a {
   color: $main;
 }
 
+.warning {
+  background: #ffea00;
+  padding: 10px;
+  border: 1px dashed #000;
+  color: #000;
+}
+
 .post-list-item {
   margin: 0 0 20px;
-  border-bottom: 1px solid $secondary;
+  border-bottom: 1px dashed $secondary;
   padding: 0 0 20px;
   &:last-child {
-    margin: 0;
     border-bottom: none;
     padding: 0;
   }
