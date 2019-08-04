@@ -36,15 +36,14 @@ function setPosts (posts) {
 export function handleCreatePost (post) {
   return (dispatch, getState) => {
     const { user } = getState()
-    console.log('user.userData.uid:', user.userData.uid)
-    firestore.collection('posts').doc(user.userData.uid).collection('post').add({
+    firestore.collection('posts').add({
+      uid: user.userData.uid,
       title: post.createPostTitle,
       content: post.createPostContent,
       created: new Date(),
     }).then((postData) => {
-      console.log('postData:', postData)
       dispatch(setPost({
-        id: user.userData.uid,
+        uid: user.userData.uid,
         title: post.createPostTitle,
         content: post.createPostContent,
       }))
@@ -56,8 +55,8 @@ export function handleCreatePost (post) {
 }
 
 export function handleGetUserPosts (uid) {
-  return (dispatch, getState) => {
-    return firestore.collection('posts').doc(uid).collection('post').orderBy('created', 'desc').get().then((querySnapshot) => {
+  return (dispatch) => {
+    return firestore.collection('posts').where('uid', '==', uid).orderBy('created', 'desc').get().then((querySnapshot) => {
       const posts = normalizeFirebaseCollectionToObjectBy('id', querySnapshot.docs)
       return dispatch(setPosts(posts))
     }).catch(error => {
