@@ -11,3 +11,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 You can see there is a ```yarn deploy``` who build and deploys to [Surge](https://surge.sh/), you can do this to runs your own modified version of this project.
 
 Any PR or Tips are welcome.
+
+[![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
